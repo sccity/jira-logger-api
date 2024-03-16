@@ -1,0 +1,7 @@
+jira:
+  jql: "project = DEV and status not in (Done,Epic)"
+  project: "DEV"
+  component: "Error Logging"
+  api: ""
+  user: ""
+  api_key: ""

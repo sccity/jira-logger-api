@@ -1,0 +1,14 @@
+[Unit]
+Description=Jira Logger API
+After=syslog.target network.target
+
+[Service]
+WorkingDirectory=/opt/jira-logger-api
+ExecStart=/bin/bash -c "docker-compose -f /opt/jira-logger-api/docker-compose.yaml up"
+ExecStop=/bin/bash -c "docker-compose -f /opt/jira-logger-api/docker-compose.yaml stop"
+
+Restart=always
+RestartSec=120
+
+[Install]
+WantedBy=multi-user.target
