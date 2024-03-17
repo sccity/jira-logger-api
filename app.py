@@ -71,7 +71,7 @@ class JiraClient:
 
     def create_issue(self, app, level, function, msg):
         existing_issues = self.fetch_issues()
-        new_issue_summary = f"APP: {app} - LEVEL: {level} - FUNCTION: {function}"
+        new_issue_summary = f"APP: {app.upper()} - LEVEL: {level.upper()} - FUNCTION: {function.upper()}"
         summary_exists = any(
             issue["fields"]["summary"] == new_issue_summary for issue in existing_issues
         )
