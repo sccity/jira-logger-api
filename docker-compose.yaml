@@ -10,7 +10,5 @@ services:
       - TZ=America/Denver
     ports:
       - "8080:5000"
-    volumes:
-      - "$PWD/config:/app/config"
     restart: unless-stopped
     user: "1435:1435" 
