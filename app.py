@@ -17,6 +17,7 @@
 import os, requests, json, time, yaml
 from flask import Flask, jsonify, request, abort
 from flask_restful import Resource, Api
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 api = Api(app)
@@ -54,7 +55,7 @@ class JiraClient:
 
     def fetch_issues(self):
         headers = {"Accept": "application/json"}
-        query = {"jql": config["jira"]["jql"]}
+        query = {"jql": os.getenv("JIRA_JQL")}
         response = requests.get(
             self.api_url + "/rest/api/3/search",
             headers=headers,
@@ -107,8 +108,8 @@ class JiraClient:
                         "issuetype": {"name": "Bug"},
                         "labels": ["ERROR", "JIRA-LOGGER"],
                         "priority": {"name": priority},
-                        "project": {"key": config["jira"]["project"]},
-                        "components": [{"name": config["jira"]["component"]}],
+                        "project": {"key": os.getenv("JIRA_PROJECT")},
+                        "components": [{"name": os.getenv("JIRA_COMPONENT")}],
                         "summary": new_issue_summary,
                     }
                 }
@@ -145,10 +146,9 @@ api.add_resource(Logger, "/logger")
 if __name__ == "__main__":
     from waitress import serve
 
-    with open("config/config.yaml", "r") as config_file:
-        config = yaml.safe_load(config_file)
+    load_dotenv()
 
-    jira_api = config["jira"]["api"]
-    jira_auth = (config["jira"]["user"], config["jira"]["api_key"])
+    jira_api = os.getenv("JIRA_API_URL")
+    jira_auth = (os.getenv("JIRA_USER"), os.getenv("JIRA_API_KEY"))
 
     serve(app, host="0.0.0.0", port=5000, threads=100)

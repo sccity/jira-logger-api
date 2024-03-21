@@ -2,7 +2,7 @@
 
 docker_compose="docker-compose -f docker-compose.yaml"
 
-[ -f config/config.yaml ] || { echo "Missing config.yaml file. Exiting."; exit 1; }
+[ -f .env ] || { echo "Missing .env file. Exiting."; exit 1; }
 
 if [[ $1 = "start" ]]; then
   echo "Starting Jira Logger API..."
