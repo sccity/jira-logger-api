@@ -55,7 +55,7 @@ class JiraClient:
 
     def fetch_issues(self):
         headers = {"Accept": "application/json"}
-        query = {"jql": os.getenv("JIRA_JQL")}
+        query = {"jql": os.environ["JIRA_JQL"]}
         response = requests.get(
             self.api_url + "/rest/api/3/search",
             headers=headers,
@@ -108,8 +108,8 @@ class JiraClient:
                         "issuetype": {"name": "Bug"},
                         "labels": ["ERROR", "JIRA-LOGGER"],
                         "priority": {"name": priority},
-                        "project": {"key": os.getenv("JIRA_PROJECT")},
-                        "components": [{"name": os.getenv("JIRA_COMPONENT")}],
+                        "project": {"key": os.environ["JIRA_PROJECT"]},
+                        "components": [{"name": os.environ["JIRA_COMPONENT"]}],
                         "summary": new_issue_summary,
                     }
                 }
@@ -148,7 +148,7 @@ if __name__ == "__main__":
 
     load_dotenv()
 
-    jira_api = os.getenv("JIRA_API_URL")
-    jira_auth = (os.getenv("JIRA_USER"), os.getenv("JIRA_API_KEY"))
+    jira_api = os.environ["JIRA_API_URL"]
+    jira_auth = (os.environ["JIRA_USER"], os.environ["JIRA_API_KEY"])
 
     serve(app, host="0.0.0.0", port=5000, threads=100)
