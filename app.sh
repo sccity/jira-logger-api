@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker_compose="docker-compose -f docker-compose.yaml"
+docker_compose="docker-compose -f docker-compose.yml"
 
 [ -f .env ] || { echo "Missing .env file. Exiting."; exit 1; }
 

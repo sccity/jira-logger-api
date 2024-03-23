@@ -8,8 +8,6 @@ services:
     container_name: jira-logger-api
     environment:
       - TZ=America/Denver
-    env_file:
-      - stack.env #For Portainer
     ports:
       - "8080:5000"
     restart: unless-stopped
